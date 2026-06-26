@@ -1,7 +1,7 @@
 {
   "name": "bk_sp_delivery_mobile",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "expo-router/entry",
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
     "axios": "^1.18.1",
