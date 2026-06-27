@@ -22,8 +22,6 @@ export const useDeliveryOrders = () => {
     try {
       if (isRefresh) {
         setRefreshing(true)
-      } else if (data.length === 0) {
-        setLoading(true)
       }
       
       const response = await DeliveryService.getAssignedOrders()
@@ -35,7 +33,7 @@ export const useDeliveryOrders = () => {
       setLoading(false)
       setRefreshing(false)
     }
-  }, [isAuthenticated, data.length])
+  }, [isAuthenticated])
 
   useEffect(() => {
     fetchOrders()
@@ -44,11 +42,14 @@ export const useDeliveryOrders = () => {
     return () => clearInterval(interval)
   }, [fetchOrders])
 
+  // Memoize the refetch function to prevent infinite loops in useFocusEffect
+  const refetch = useCallback(() => fetchOrders(true), [fetchOrders])
+
   return {
     orders: data,
     loading,
     refreshing,
     error,
-    refetch: () => fetchOrders(true),
+    refetch,
   }
 }
