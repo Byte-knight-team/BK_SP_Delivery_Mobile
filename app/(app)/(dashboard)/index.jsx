@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFocusEffect } from 'expo-router'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 // Hooks
 import { useAuth } from '../../../src/context/AuthContext'
@@ -104,8 +104,8 @@ export default function DashboardScreen() {
 
         {/* Pending Assignments List */}
         <View className="px-6 mb-4 mt-2">
-          <Text className="text-xl font-black text-gray-900">
-            Pending Assignments
+          <Text className="text-[11px] font-bold text-[#8C9EAE] uppercase tracking-widest">
+            Assigned To You
           </Text>
         </View>
 
@@ -122,13 +122,15 @@ export default function DashboardScreen() {
             />
           ))
         ) : (
-          <View className="mx-6 bg-white rounded-3xl p-10 items-center justify-center border border-dashed border-gray-200">
-            <Ionicons name="checkmark-circle-outline" size={48} color={colors.gray[300]} />
-            <Text className="text-lg font-bold text-gray-400 mt-4 text-center">
+          <View className="mx-6 bg-[#F9FAFB]/50 rounded-[32px] p-10 items-center justify-center border border-dashed border-gray-200">
+            <View className="w-16 h-16 bg-white rounded-2xl items-center justify-center shadow-sm mb-4">
+              <MaterialCommunityIcons name="truck-delivery-outline" size={32} color="#D1D5DB" />
+            </View>
+            <Text className="text-[15px] font-bold text-[#8C9EAE] text-center">
               No pending assignments.
             </Text>
-            <Text className="text-sm text-gray-400 text-center mt-1">
-              Pull to refresh or wait for a new order.
+            <Text className="text-xs font-medium text-[#D1D5DB] text-center mt-1">
+              New orders will appear here in real-time.
             </Text>
           </View>
         )}

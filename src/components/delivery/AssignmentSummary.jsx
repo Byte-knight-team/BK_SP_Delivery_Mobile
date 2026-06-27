@@ -1,31 +1,36 @@
 import { View, Text } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '../../theme/colors'
 
 /**
  * AssignmentSummary — displays stats about assigned/completed orders.
- * Migrated from web frontend's AssignmentSummary.jsx.
+ * Updated to match the new UI design.
  */
-export default function AssignmentSummary({ assignedCount, completedCount = 0 }) {
+export default function AssignmentSummary({ assignedCount }) {
   return (
-    <View className="flex-row mx-6 mb-6">
-      <View className="flex-1 bg-white rounded-3xl p-5 mr-3 shadow-sm border border-gray-100">
-        <View className="w-10 h-10 bg-blue-50 rounded-full items-center justify-center mb-3">
-          <Ionicons name="list-outline" size={20} color={colors.blue[500]} />
+    <View className="mx-6 mb-6 bg-white rounded-[24px] p-5 shadow-sm border border-gray-100 flex-row items-center justify-between">
+      <View className="flex-row items-center">
+        {/* Icon container */}
+        <View className="w-14 h-14 bg-[#FFF5EB] rounded-2xl items-center justify-center mr-4">
+          <MaterialCommunityIcons name="truck-delivery-outline" size={24} color={colors.brand[500]} />
         </View>
-        <Text className="text-3xl font-black text-gray-900">{assignedCount}</Text>
-        <Text className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">
-          Assigned
-        </Text>
+        
+        {/* Text content */}
+        <View>
+          <Text className="text-[11px] font-bold text-[#8C9EAE] uppercase tracking-widest mb-1">
+            Assigned Tasks
+          </Text>
+          <View className="flex-row items-baseline">
+            <Text className="text-3xl font-black text-gray-900 mr-2">{assignedCount}</Text>
+            <Text className="text-sm font-semibold text-[#8C9EAE]">Orders</Text>
+          </View>
+        </View>
       </View>
-
-      <View className="flex-1 bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
-        <View className="w-10 h-10 bg-green-50 rounded-full items-center justify-center mb-3">
-          <Ionicons name="checkmark-done-outline" size={20} color={colors.green[500]} />
-        </View>
-        <Text className="text-3xl font-black text-gray-900">{completedCount}</Text>
-        <Text className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">
-          Completed
+      
+      {/* Pending badge */}
+      <View className="bg-[#EBFFF4] px-3 py-1.5 rounded-full">
+        <Text className="text-[10px] font-black text-[#10B981] uppercase tracking-wider">
+          Pending
         </Text>
       </View>
     </View>
