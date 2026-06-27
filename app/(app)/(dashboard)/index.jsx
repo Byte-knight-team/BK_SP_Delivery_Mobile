@@ -19,6 +19,7 @@ import { useActiveOrder } from '../../../src/hooks/useActiveOrder'
 import ActiveOrderBanner from '../../../src/components/delivery/ActiveOrderBanner'
 import AssignmentSummary from '../../../src/components/delivery/AssignmentSummary'
 import OrderActionCard from '../../../src/components/delivery/OrderActionCard'
+import ProfileHeader from '../../../src/components/delivery/ProfileHeader'
 import { colors } from '../../../src/theme/colors'
 
 /**
@@ -89,6 +90,9 @@ export default function DashboardScreen() {
           />
         }
       >
+        {/* Welcome banner with live clock */}
+        <ProfileHeader name={user?.fullName} />
+
         {/* Active Order Banner — only shows if the driver has an active delivery */}
         <ActiveOrderBanner order={activeOrder} />
 
