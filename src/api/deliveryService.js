@@ -106,4 +106,15 @@ export const DeliveryService = {
     })
     return response.data
   },
+
+  /**
+   * Retrieves the delivery history (DELIVERED & CANCELLED) for the logged-in driver.
+   *
+   * Endpoint: GET /api/delivery/orders/history
+   * @returns {Promise<Array>} List of historical delivery records.
+   */
+  getHistory: async () => {
+    const response = await apiClient.get(`${BASE_PATH}/orders/history`)
+    return response.data
+  },
 }
