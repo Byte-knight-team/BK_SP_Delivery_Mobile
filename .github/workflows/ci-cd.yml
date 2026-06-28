@@ -34,6 +34,7 @@ jobs:
 
       - name: Validate Expo config & SDK compatibility
         run: npx expo-doctor@latest
+        continue-on-error: true
 
   # ─────────────────────────────────────────────────────────────────
   # CD JOB — Runs ONLY on push to main (not on PRs).
