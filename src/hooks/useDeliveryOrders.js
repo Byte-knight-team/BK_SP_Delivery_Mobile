@@ -16,24 +16,27 @@ export const useDeliveryOrders = () => {
   const [error, setError] = useState(null)
   const [refreshing, setRefreshing] = useState(false)
 
-  const fetchOrders = useCallback(async (isRefresh = false) => {
-    if (!isAuthenticated) return
+  const fetchOrders = useCallback(
+    async (isRefresh = false) => {
+      if (!isAuthenticated) return
 
-    try {
-      if (isRefresh) {
-        setRefreshing(true)
+      try {
+        if (isRefresh) {
+          setRefreshing(true)
+        }
+
+        const response = await DeliveryService.getAssignedOrders()
+        setData(response.data || [])
+        setError(null)
+      } catch (err) {
+        setError(err.message || 'Failed to fetch assigned orders')
+      } finally {
+        setLoading(false)
+        setRefreshing(false)
       }
-      
-      const response = await DeliveryService.getAssignedOrders()
-      setData(response.data || [])
-      setError(null)
-    } catch (err) {
-      setError(err.message || 'Failed to fetch assigned orders')
-    } finally {
-      setLoading(false)
-      setRefreshing(false)
-    }
-  }, [isAuthenticated])
+    },
+    [isAuthenticated]
+  )
 
   useEffect(() => {
     fetchOrders()

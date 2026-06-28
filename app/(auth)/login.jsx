@@ -69,34 +69,50 @@ export default function LoginScreen() {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <LinearGradient
-          colors={[colors.brand[500], colors.brand[600]]}
-          style={{ flex: 1 }}
-        >
+        <LinearGradient colors={[colors.brand[500], colors.brand[600]]} style={{ flex: 1 }}>
           {/* Decorative circles */}
           <View
             style={{
-              position: 'absolute', top: -30, right: -30,
-              width: 200, height: 200,
-              backgroundColor: 'white', opacity: 0.1, borderRadius: 100,
+              position: 'absolute',
+              top: -30,
+              right: -30,
+              width: 200,
+              height: 200,
+              backgroundColor: 'white',
+              opacity: 0.1,
+              borderRadius: 100,
             }}
           />
           <View
             style={{
-              position: 'absolute', top: 80, left: -40,
-              width: 140, height: 140,
-              backgroundColor: 'black', opacity: 0.05, borderRadius: 70,
+              position: 'absolute',
+              top: 80,
+              left: -40,
+              width: 140,
+              height: 140,
+              backgroundColor: 'black',
+              opacity: 0.05,
+              borderRadius: 70,
             }}
           />
 
           {/* ── Brand header (non-scrollable) ── */}
-          <View style={{ alignItems: 'center', paddingTop: 40, paddingBottom: 36, paddingHorizontal: 32 }}>
+          <View
+            style={{
+              alignItems: 'center',
+              paddingTop: 40,
+              paddingBottom: 36,
+              paddingHorizontal: 32,
+            }}
+          >
             <View
               style={{
-                width: 80, height: 80,
+                width: 80,
+                height: 80,
                 backgroundColor: 'rgba(255,255,255,0.2)',
                 borderRadius: 24,
-                alignItems: 'center', justifyContent: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
                 marginBottom: 16,
               }}
             >
@@ -105,14 +121,28 @@ export default function LoginScreen() {
             <Text style={{ fontSize: 28, fontWeight: '900', color: 'white', letterSpacing: -0.5 }}>
               CRAVE<Text style={{ color: '#FED7AA' }}>HOUSE</Text>
             </Text>
-            <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', fontWeight: '600', marginTop: 6, letterSpacing: 2, textTransform: 'uppercase' }}>
+            <Text
+              style={{
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.7)',
+                fontWeight: '600',
+                marginTop: 6,
+                letterSpacing: 2,
+                textTransform: 'uppercase',
+              }}
+            >
               Delivery Driver
             </Text>
           </View>
 
           {/* ── White form card (fills remaining space) ── */}
           <ScrollView
-            style={{ flex: 1, backgroundColor: 'white', borderTopLeftRadius: 36, borderTopRightRadius: 36 }}
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              borderTopLeftRadius: 36,
+              borderTopRightRadius: 36,
+            }}
             contentContainerStyle={{ padding: 32, paddingBottom: 40 }}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
@@ -126,8 +156,19 @@ export default function LoginScreen() {
 
             {/* Error */}
             {error ? (
-              <View style={{ backgroundColor: '#FEF2F2', borderWidth: 1, borderColor: '#FEE2E2', borderRadius: 16, padding: 14, marginBottom: 20 }}>
-                <Text style={{ color: '#EF4444', fontSize: 12, fontWeight: '700', textAlign: 'center' }}>
+              <View
+                style={{
+                  backgroundColor: '#FEF2F2',
+                  borderWidth: 1,
+                  borderColor: '#FEE2E2',
+                  borderRadius: 16,
+                  padding: 14,
+                  marginBottom: 20,
+                }}
+              >
+                <Text
+                  style={{ color: '#EF4444', fontSize: 12, fontWeight: '700', textAlign: 'center' }}
+                >
                   {error}
                 </Text>
               </View>
@@ -135,13 +176,40 @@ export default function LoginScreen() {
 
             {/* Email */}
             <View style={{ marginBottom: 14 }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 8, marginLeft: 4 }}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: '700',
+                  color: '#9CA3AF',
+                  textTransform: 'uppercase',
+                  letterSpacing: 1.5,
+                  marginBottom: 8,
+                  marginLeft: 4,
+                }}
+              >
                 Email
               </Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#F9FAFB', borderWidth: 1, borderColor: '#F3F4F6', borderRadius: 16, paddingHorizontal: 16, height: 56 }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  backgroundColor: '#F9FAFB',
+                  borderWidth: 1,
+                  borderColor: '#F3F4F6',
+                  borderRadius: 16,
+                  paddingHorizontal: 16,
+                  height: 56,
+                }}
+              >
                 <Ionicons name="mail-outline" size={20} color="#9CA3AF" />
                 <TextInput
-                  style={{ flex: 1, marginLeft: 12, fontSize: 15, color: '#111827', fontWeight: '500' }}
+                  style={{
+                    flex: 1,
+                    marginLeft: 12,
+                    fontSize: 15,
+                    color: '#111827',
+                    fontWeight: '500',
+                  }}
                   placeholder="driver@cravehouse.com"
                   placeholderTextColor="#D1D5DB"
                   value={email}
@@ -157,13 +225,40 @@ export default function LoginScreen() {
 
             {/* Password */}
             <View style={{ marginBottom: 32 }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 8, marginLeft: 4 }}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: '700',
+                  color: '#9CA3AF',
+                  textTransform: 'uppercase',
+                  letterSpacing: 1.5,
+                  marginBottom: 8,
+                  marginLeft: 4,
+                }}
+              >
                 Password
               </Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#F9FAFB', borderWidth: 1, borderColor: '#F3F4F6', borderRadius: 16, paddingHorizontal: 16, height: 56 }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  backgroundColor: '#F9FAFB',
+                  borderWidth: 1,
+                  borderColor: '#F3F4F6',
+                  borderRadius: 16,
+                  paddingHorizontal: 16,
+                  height: 56,
+                }}
+              >
                 <Ionicons name="lock-closed-outline" size={20} color="#9CA3AF" />
                 <TextInput
-                  style={{ flex: 1, marginLeft: 12, fontSize: 15, color: '#111827', fontWeight: '500' }}
+                  style={{
+                    flex: 1,
+                    marginLeft: 12,
+                    fontSize: 15,
+                    color: '#111827',
+                    fontWeight: '500',
+                  }}
                   placeholder="Enter your password"
                   placeholderTextColor="#D1D5DB"
                   value={password}
@@ -207,7 +302,15 @@ export default function LoginScreen() {
               {loading ? (
                 <ActivityIndicator size="small" color="white" />
               ) : (
-                <Text style={{ color: 'white', fontWeight: '900', fontSize: 14, textTransform: 'uppercase', letterSpacing: 2 }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: '900',
+                    fontSize: 14,
+                    textTransform: 'uppercase',
+                    letterSpacing: 2,
+                  }}
+                >
                   Sign In
                 </Text>
               )}

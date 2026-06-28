@@ -90,7 +90,12 @@ export default function HistoryOrderCard({ item }) {
           <View className="mt-3 gap-2.5">
             {/* Address */}
             <View className="flex-row items-start gap-2">
-              <Ionicons name="location-outline" size={16} color="#6B7280" style={{ marginTop: 1 }} />
+              <Ionicons
+                name="location-outline"
+                size={16}
+                color="#6B7280"
+                style={{ marginTop: 1 }}
+              />
               <Text className="text-sm text-gray-600 flex-1 leading-5">
                 {item.deliveryAddress || '—'}
               </Text>

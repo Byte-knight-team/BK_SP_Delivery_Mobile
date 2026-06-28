@@ -92,9 +92,7 @@ export function AuthProvider({ children }) {
       ...decodedUser,
       // Keep passwordChanged only in React memory — not persisted to storage
       passwordChanged:
-        data.passwordChanged !== undefined
-          ? data.passwordChanged
-          : decodedUser?.passwordChanged,
+        data.passwordChanged !== undefined ? data.passwordChanged : decodedUser?.passwordChanged,
     }
 
     setToken(accessToken)

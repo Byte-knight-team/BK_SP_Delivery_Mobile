@@ -1,11 +1,5 @@
 import { useState, useCallback } from 'react'
-import {
-  View,
-  Text,
-  ScrollView,
-  RefreshControl,
-  ActivityIndicator,
-} from 'react-native'
+import { View, Text, ScrollView, RefreshControl, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFocusEffect } from 'expo-router'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -30,19 +24,16 @@ import { colors } from '../../../src/theme/colors'
  */
 export default function DashboardScreen() {
   const { user } = useAuth()
-  
+
   // Custom hooks for data fetching and polling
-  const { 
-    orders, 
-    loading: ordersLoading, 
+  const {
+    orders,
+    loading: ordersLoading,
     refreshing: ordersRefreshing,
-    refetch: refetchOrders 
+    refetch: refetchOrders,
   } = useDeliveryOrders()
-  
-  const { 
-    activeOrder, 
-    refetch: refetchActiveOrder 
-  } = useActiveOrder()
+
+  const { activeOrder, refetch: refetchActiveOrder } = useActiveOrder()
 
   // Force a refetch whenever the dashboard comes into focus
   useFocusEffect(
@@ -70,9 +61,7 @@ export default function DashboardScreen() {
           <Text className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-1">
             {user?.branchName || 'No Branch'}
           </Text>
-          <Text className="text-3xl font-black text-gray-900 tracking-tight">
-            Dashboard
-          </Text>
+          <Text className="text-3xl font-black text-gray-900 tracking-tight">Dashboard</Text>
         </View>
         <View className="w-12 h-12 bg-white rounded-full items-center justify-center shadow-sm border border-gray-100">
           <Ionicons name="bicycle" size={24} color={colors.brand[500]} />
@@ -97,10 +86,7 @@ export default function DashboardScreen() {
         <ActiveOrderBanner order={activeOrder} />
 
         {/* Stats Summary */}
-        <AssignmentSummary
-          assignedCount={assignedOrders.length}
-          completedCount={completedCount}
-        />
+        <AssignmentSummary assignedCount={assignedOrders.length} completedCount={completedCount} />
 
         {/* Pending Assignments List */}
         <View className="px-6 mb-4 mt-2">
@@ -115,11 +101,7 @@ export default function DashboardScreen() {
           </View>
         ) : assignedOrders.length > 0 ? (
           assignedOrders.map((order) => (
-            <OrderActionCard
-              key={order.id}
-              order={order}
-              onActionComplete={handleRefresh}
-            />
+            <OrderActionCard key={order.id} order={order} onActionComplete={handleRefresh} />
           ))
         ) : (
           <View className="mx-6 bg-[#F9FAFB]/50 rounded-[32px] p-10 items-center justify-center border border-dashed border-gray-200">

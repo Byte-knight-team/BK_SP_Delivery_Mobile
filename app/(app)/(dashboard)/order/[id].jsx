@@ -32,7 +32,7 @@ export default function OrderDetailScreen() {
     try {
       setLoading(true)
       const response = await DeliveryService.getActiveOrder()
-      
+
       // If the active order matches this screen's ID, display it
       if (response.data && response.data.id.toString() === id) {
         setOrder(response.data)
@@ -52,11 +52,11 @@ export default function OrderDetailScreen() {
     setUpdating(true)
     try {
       await DeliveryService.updateDeliveryStatus(id, status)
-      
+
       if (status === 'DELIVERED') {
         // Delivery complete! Go back to dashboard to get next order
         Alert.alert('Success', 'Order marked as delivered!', [
-          { text: 'OK', onPress: () => router.replace('/(app)/(dashboard)') }
+          { text: 'OK', onPress: () => router.replace('/(app)/(dashboard)') },
         ])
       } else {
         // Just updated to OUT_FOR_DELIVERY, stay on screen and refresh
@@ -71,8 +71,8 @@ export default function OrderDetailScreen() {
 
   const handleCallCustomer = () => {
     // In a real app, use order.customerPhone. Using dummy data to match web.
-    const phoneNumber = '+94771234567' 
-    Linking.openURL(`tel:${phoneNumber}`).catch(() => 
+    const phoneNumber = '+94771234567'
+    Linking.openURL(`tel:${phoneNumber}`).catch(() =>
       Alert.alert('Error', 'Unable to open phone dialer')
     )
   }
@@ -90,7 +90,7 @@ export default function OrderDetailScreen() {
     return (
       <SafeAreaView className="flex-1 bg-gray-50 items-center justify-center">
         <Text className="text-red-500 font-bold text-lg">Order not found</Text>
-        <TouchableOpacity 
+        <TouchableOpacity
           className="mt-4 bg-gray-900 px-6 py-3 rounded-xl"
           onPress={() => router.replace('/(app)/(dashboard)')}
         >
@@ -104,7 +104,7 @@ export default function OrderDetailScreen() {
     <SafeAreaView className="flex-1 bg-gray-50" edges={['top', 'bottom']}>
       {/* Header */}
       <View className="flex-row items-center px-6 py-4">
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => router.back()}
           className="w-10 h-10 rounded-xl bg-white border border-gray-200 items-center justify-center shadow-sm"
         >
@@ -127,12 +127,16 @@ export default function OrderDetailScreen() {
                 {order.id || order.orderNumber}
               </Text>
             </View>
-            <View className={`px-4 py-1.5 rounded-full ${
-              order.status === 'OUT_FOR_DELIVERY' ? 'bg-blue-50' : 'bg-orange-50'
-            }`}>
-              <Text className={`text-[10px] font-black uppercase tracking-widest ${
-                order.status === 'OUT_FOR_DELIVERY' ? 'text-blue-500' : 'text-orange-500'
-              }`}>
+            <View
+              className={`px-4 py-1.5 rounded-full ${
+                order.status === 'OUT_FOR_DELIVERY' ? 'bg-blue-50' : 'bg-orange-50'
+              }`}
+            >
+              <Text
+                className={`text-[10px] font-black uppercase tracking-widest ${
+                  order.status === 'OUT_FOR_DELIVERY' ? 'text-blue-500' : 'text-orange-500'
+                }`}
+              >
                 {order.status.replace(/_/g, ' ')}
               </Text>
             </View>
@@ -154,7 +158,7 @@ export default function OrderDetailScreen() {
           </View>
 
           {/* Contact */}
-          <TouchableOpacity 
+          <TouchableOpacity
             className="flex-row mb-5"
             activeOpacity={0.7}
             onPress={handleCallCustomer}
@@ -194,7 +198,12 @@ export default function OrderDetailScreen() {
             className={`flex-row items-center justify-center h-16 rounded-2xl shadow-lg ${
               updating ? 'bg-gray-400' : 'bg-gray-900'
             }`}
-            style={{ shadowColor: colors.black, shadowOpacity: 0.2, shadowOffset: { height: 4 }, shadowRadius: 10 }}
+            style={{
+              shadowColor: colors.black,
+              shadowOpacity: 0.2,
+              shadowOffset: { height: 4 },
+              shadowRadius: 10,
+            }}
           >
             {updating ? (
               <ActivityIndicator color="white" />
@@ -214,7 +223,12 @@ export default function OrderDetailScreen() {
             className={`flex-row items-center justify-center h-16 rounded-2xl shadow-lg ${
               updating ? 'bg-green-300' : 'bg-green-500'
             }`}
-            style={{ shadowColor: colors.green[500], shadowOpacity: 0.3, shadowOffset: { height: 4 }, shadowRadius: 10 }}
+            style={{
+              shadowColor: colors.green[500],
+              shadowOpacity: 0.3,
+              shadowOffset: { height: 4 },
+              shadowRadius: 10,
+            }}
           >
             {updating ? (
               <ActivityIndicator color="white" />
@@ -228,7 +242,6 @@ export default function OrderDetailScreen() {
             )}
           </TouchableOpacity>
         ) : null}
-
       </ScrollView>
     </SafeAreaView>
   )
