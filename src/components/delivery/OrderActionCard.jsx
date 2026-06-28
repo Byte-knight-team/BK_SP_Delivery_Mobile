@@ -79,7 +79,7 @@ export default function OrderActionCard({ order, onActionComplete }) {
         </Text>
       </View>
 
-      <View className="flex-row space-x-3">
+      <View className="flex-row gap-3">
         <TouchableOpacity
           onPress={handleReject}
           disabled={loading}
