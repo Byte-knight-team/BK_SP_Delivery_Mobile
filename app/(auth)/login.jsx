@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons } from '@expo/vector-icons'
@@ -19,14 +20,12 @@ import { colors } from '../../src/theme/colors'
 /**
  * Login Screen — staff login for delivery drivers.
  *
- * Migrated from the web frontend's StaffLoginPage.
- * Uses the same POST /api/auth/staff/login endpoint.
- *
- * Key mobile differences:
- * - KeyboardAvoidingView to handle on-screen keyboard
- * - Validates role === 'DELIVERY' — rejects non-delivery staff
- * - Uses expo-router for navigation instead of react-router-dom
- * - Shows error from URL params (e.g., when redirected from 403)
+ * Layout:
+ *  SafeAreaView (brand bg, respects status bar)
+ *    KeyboardAvoidingView (flex-1)
+ *      LinearGradient (flex-1, full screen gradient)
+ *        Brand header (fixed, not scrollable)
+ *        White form card (flex-1, rounded top, scrollable inside)
  */
 export default function LoginScreen() {
   const { login } = useAuth()
@@ -39,19 +38,14 @@ export default function LoginScreen() {
   const [error, setError] = useState(params.error || '')
 
   const handleLogin = async () => {
-    // Basic validation
     if (!email.trim() || !password.trim()) {
       setError('Please enter both email and password.')
       return
     }
-
     setLoading(true)
     setError('')
-
     try {
       const result = await login({ email: email.trim(), password })
-
-      // Only delivery staff can use this app
       if (result.roleName !== 'DELIVERY') {
         Alert.alert(
           'Access Denied',
@@ -61,8 +55,6 @@ export default function LoginScreen() {
         setLoading(false)
         return
       }
-
-      // Navigate to dashboard — replace so user can't go back to login
       router.replace('/(app)/(dashboard)')
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.')
@@ -72,66 +64,86 @@ export default function LoginScreen() {
   }
 
   return (
-    <KeyboardAvoidingView
-      className="flex-1"
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.brand[500] }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View className="flex-1 bg-white">
-          {/* Top gradient header */}
-          <LinearGradient
-            colors={[colors.brand[500], colors.brand[600]]}
-            className="pt-20 pb-16 px-8 rounded-b-[40px]"
-          >
-            {/* Decorative background elements */}
-            <View className="absolute top-0 right-0 -mr-8 -mt-8 w-48 h-48 bg-white opacity-10 rounded-full" />
-            <View className="absolute bottom-0 left-0 -ml-8 -mb-8 w-32 h-32 bg-black opacity-5 rounded-full" />
+        <LinearGradient
+          colors={[colors.brand[500], colors.brand[600]]}
+          style={{ flex: 1 }}
+        >
+          {/* Decorative circles */}
+          <View
+            style={{
+              position: 'absolute', top: -30, right: -30,
+              width: 200, height: 200,
+              backgroundColor: 'white', opacity: 0.1, borderRadius: 100,
+            }}
+          />
+          <View
+            style={{
+              position: 'absolute', top: 80, left: -40,
+              width: 140, height: 140,
+              backgroundColor: 'black', opacity: 0.05, borderRadius: 70,
+            }}
+          />
 
-            <View className="items-center relative z-10">
-              <View className="w-20 h-20 bg-white/20 rounded-3xl items-center justify-center mb-5">
-                <Ionicons name="bicycle" size={40} color="white" />
-              </View>
-              <Text className="text-3xl font-black text-white tracking-tight">
-                CRAVE<Text className="text-orange-100">HOUSE</Text>
-              </Text>
-              <Text className="text-sm text-white/70 font-medium mt-2 uppercase tracking-widest">
-                Delivery Driver
-              </Text>
+          {/* ── Brand header (non-scrollable) ── */}
+          <View style={{ alignItems: 'center', paddingTop: 40, paddingBottom: 36, paddingHorizontal: 32 }}>
+            <View
+              style={{
+                width: 80, height: 80,
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                borderRadius: 24,
+                alignItems: 'center', justifyContent: 'center',
+                marginBottom: 16,
+              }}
+            >
+              <Ionicons name="bicycle" size={40} color="white" />
             </View>
-          </LinearGradient>
+            <Text style={{ fontSize: 28, fontWeight: '900', color: 'white', letterSpacing: -0.5 }}>
+              CRAVE<Text style={{ color: '#FED7AA' }}>HOUSE</Text>
+            </Text>
+            <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', fontWeight: '600', marginTop: 6, letterSpacing: 2, textTransform: 'uppercase' }}>
+              Delivery Driver
+            </Text>
+          </View>
 
-          {/* Login form */}
-          <View className="flex-1 px-8 pt-10 -mt-6 bg-white rounded-t-[30px]">
-            <Text className="text-2xl font-black text-gray-900 mb-1">
+          {/* ── White form card (fills remaining space) ── */}
+          <ScrollView
+            style={{ flex: 1, backgroundColor: 'white', borderTopLeftRadius: 36, borderTopRightRadius: 36 }}
+            contentContainerStyle={{ padding: 32, paddingBottom: 40 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <Text style={{ fontSize: 24, fontWeight: '900', color: '#111827', marginBottom: 4 }}>
               Welcome back
             </Text>
-            <Text className="text-sm text-gray-400 mb-8">
+            <Text style={{ fontSize: 14, color: '#9CA3AF', marginBottom: 28 }}>
               Sign in to start your shift
             </Text>
 
-            {/* Error message */}
+            {/* Error */}
             {error ? (
-              <View className="bg-red-50 border border-red-100 rounded-2xl p-4 mb-6">
-                <Text className="text-red-500 text-xs font-bold text-center">
+              <View style={{ backgroundColor: '#FEF2F2', borderWidth: 1, borderColor: '#FEE2E2', borderRadius: 16, padding: 14, marginBottom: 20 }}>
+                <Text style={{ color: '#EF4444', fontSize: 12, fontWeight: '700', textAlign: 'center' }}>
                   {error}
                 </Text>
               </View>
             ) : null}
 
-            {/* Email input */}
-            <View className="mb-4">
-              <Text className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+            {/* Email */}
+            <View style={{ marginBottom: 14 }}>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 8, marginLeft: 4 }}>
                 Email
               </Text>
-              <View className="flex-row items-center bg-gray-50 border border-gray-100 rounded-2xl px-4 h-14">
-                <Ionicons name="mail-outline" size={20} color={colors.gray[400]} />
+              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#F9FAFB', borderWidth: 1, borderColor: '#F3F4F6', borderRadius: 16, paddingHorizontal: 16, height: 56 }}>
+                <Ionicons name="mail-outline" size={20} color="#9CA3AF" />
                 <TextInput
-                  className="flex-1 ml-3 text-base text-gray-900 font-medium"
+                  style={{ flex: 1, marginLeft: 12, fontSize: 15, color: '#111827', fontWeight: '500' }}
                   placeholder="driver@cravehouse.com"
-                  placeholderTextColor={colors.gray[300]}
+                  placeholderTextColor="#D1D5DB"
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
@@ -143,17 +155,17 @@ export default function LoginScreen() {
               </View>
             </View>
 
-            {/* Password input */}
-            <View className="mb-8">
-              <Text className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">
+            {/* Password */}
+            <View style={{ marginBottom: 32 }}>
+              <Text style={{ fontSize: 11, fontWeight: '700', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 8, marginLeft: 4 }}>
                 Password
               </Text>
-              <View className="flex-row items-center bg-gray-50 border border-gray-100 rounded-2xl px-4 h-14">
-                <Ionicons name="lock-closed-outline" size={20} color={colors.gray[400]} />
+              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#F9FAFB', borderWidth: 1, borderColor: '#F3F4F6', borderRadius: 16, paddingHorizontal: 16, height: 56 }}>
+                <Ionicons name="lock-closed-outline" size={20} color="#9CA3AF" />
                 <TextInput
-                  className="flex-1 ml-3 text-base text-gray-900 font-medium"
+                  style={{ flex: 1, marginLeft: 12, fontSize: 15, color: '#111827', fontWeight: '500' }}
                   placeholder="Enter your password"
-                  placeholderTextColor={colors.gray[300]}
+                  placeholderTextColor="#D1D5DB"
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
@@ -168,20 +180,23 @@ export default function LoginScreen() {
                   <Ionicons
                     name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                     size={22}
-                    color={colors.gray[400]}
+                    color="#9CA3AF"
                   />
                 </TouchableOpacity>
               </View>
             </View>
 
-            {/* Login button */}
+            {/* Sign In button */}
             <TouchableOpacity
               onPress={handleLogin}
               disabled={loading}
               activeOpacity={0.85}
-              className="h-16 rounded-2xl items-center justify-center shadow-lg"
               style={{
-                backgroundColor: loading ? colors.gray[300] : colors.brand[500],
+                height: 60,
+                borderRadius: 16,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: loading ? '#D1D5DB' : colors.brand[500],
                 shadowColor: colors.brand[500],
                 shadowOffset: { width: 0, height: 8 },
                 shadowOpacity: 0.3,
@@ -192,14 +207,14 @@ export default function LoginScreen() {
               {loading ? (
                 <ActivityIndicator size="small" color="white" />
               ) : (
-                <Text className="text-white font-black text-base uppercase tracking-widest">
+                <Text style={{ color: 'white', fontWeight: '900', fontSize: 14, textTransform: 'uppercase', letterSpacing: 2 }}>
                   Sign In
                 </Text>
               )}
             </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+          </ScrollView>
+        </LinearGradient>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
