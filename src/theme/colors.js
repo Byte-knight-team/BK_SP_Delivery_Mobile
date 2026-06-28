@@ -5,7 +5,7 @@
  */
 export const colors = {
   brand: {
-    50:  '#fff7ed',
+    50: '#fff7ed',
     100: '#ffedd5',
     200: '#fed7aa',
     300: '#fdba74',
@@ -15,7 +15,7 @@ export const colors = {
     700: '#c2410c',
   },
   gray: {
-    50:  '#f9fafb',
+    50: '#f9fafb',
     100: '#f3f4f6',
     200: '#e5e7eb',
     300: '#d1d5db',
@@ -25,16 +25,16 @@ export const colors = {
     900: '#111827',
   },
   green: {
-    50:  '#f0fdf4',
+    50: '#f0fdf4',
     500: '#22c55e',
     600: '#16a34a',
   },
   blue: {
-    50:  '#eff6ff',
+    50: '#eff6ff',
     500: '#3b82f6',
   },
   red: {
-    50:  '#fef2f2',
+    50: '#fef2f2',
     100: '#fee2e2',
     500: '#ef4444',
   },

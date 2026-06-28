@@ -1,7 +1,6 @@
 // API base URL — loaded from environment variable
 // Set EXPO_PUBLIC_API_BASE_URL in your .env file
-export const API_BASE_URL =
-  process.env.EXPO_PUBLIC_API_BASE_URL || 'http://10.0.2.2:8080'
+export const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL || 'http://10.0.2.2:8080'
 
 // Secure storage keys — centralized to avoid typos across files
 export const STORAGE_KEYS = {

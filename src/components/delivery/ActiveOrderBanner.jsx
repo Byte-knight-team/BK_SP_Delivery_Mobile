@@ -27,14 +27,10 @@ export default function ActiveOrderBanner({ order }) {
             Active Delivery
           </Text>
         </View>
-        <Text className="text-white/80 font-bold text-xs uppercase">
-          #{order.id}
-        </Text>
+        <Text className="text-white/80 font-bold text-xs uppercase">#{order.id}</Text>
       </View>
 
-      <Text className="text-white text-xl font-black mb-1">
-        {order.deliveryAddress}
-      </Text>
+      <Text className="text-white text-xl font-black mb-1">{order.deliveryAddress}</Text>
       <Text className="text-brand-100 text-sm font-medium mb-4">
         {order.customerName} • {order.customerPhone}
       </Text>

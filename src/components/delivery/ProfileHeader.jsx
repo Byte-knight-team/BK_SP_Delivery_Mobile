@@ -61,16 +61,12 @@ export default function ProfileHeader({ name }) {
             <Text className="text-[56px] font-black text-white tracking-tighter">
               {timeParts[0]}
             </Text>
-            <Text className="text-2xl font-black text-white/90 ml-1">
-              {timeParts[1]}
-            </Text>
+            <Text className="text-2xl font-black text-white/90 ml-1">{timeParts[1]}</Text>
           </View>
 
           <View className="h-px w-12 bg-white/30 mb-4" />
 
-          <Text className="text-[22px] font-bold text-white mb-1">
-            Hello, {name || 'Driver'}!
-          </Text>
+          <Text className="text-[22px] font-bold text-white mb-1">Hello, {name || 'Driver'}!</Text>
           <Text className="text-[13px] text-white/80 font-medium">
             Ready for your next delivery?
           </Text>

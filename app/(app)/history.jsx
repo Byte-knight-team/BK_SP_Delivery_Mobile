@@ -1,11 +1,5 @@
 import { useEffect } from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  RefreshControl,
-  ActivityIndicator,
-} from 'react-native'
+import { View, Text, FlatList, RefreshControl, ActivityIndicator } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import { colors } from '../../src/theme/colors'
@@ -93,4 +87,3 @@ export default function HistoryScreen() {
     </SafeAreaView>
   )
 }
-
