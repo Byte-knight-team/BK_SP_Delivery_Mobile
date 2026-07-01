@@ -27,7 +27,7 @@
       "package": "com.byteknights.cravehouse.delivery",
       "config": {
         "googleMaps": {
-          "apiKey": "REPLACE_WITH_YOUR_GOOGLE_MAPS_API_KEY"
+          "apiKey": "AIzaSyCeQps-AfE_UdL8ytGmcvbNNuuO7N3HMnc"
         }
       },
       "permissions": [
