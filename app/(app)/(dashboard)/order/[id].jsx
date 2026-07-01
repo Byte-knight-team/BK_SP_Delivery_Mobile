@@ -13,6 +13,7 @@ import { useLocalSearchParams, router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { DeliveryService } from '../../../../src/api/deliveryService'
 import { colors } from '../../../../src/theme/colors'
+import DeliveryMapView from '../../../../src/components/delivery/DeliveryMapView'
 
 /**
  * Order Detail Screen — handles active delivery status transitions.
@@ -116,6 +117,13 @@ export default function OrderDetailScreen() {
       </View>
 
       <ScrollView className="flex-1 px-6" contentContainerStyle={{ paddingBottom: 40 }}>
+        {/* Map View */}
+        <DeliveryMapView 
+          customerLat={order.latitude} 
+          customerLng={order.longitude}
+          deliveryAddress={order.deliveryAddress || order.location} 
+        />
+
         {/* Main Info Card */}
         <View className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm mb-6">
           <View className="flex-row justify-between items-center border-b border-gray-50 pb-4 mb-4">
