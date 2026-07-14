@@ -28,6 +28,7 @@ import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import { getDirections } from '../../utils/directions'
 import { colors } from '../../theme/colors'
+import { fonts } from '../../theme/fonts'
 
 // ── Hardcoded restaurant location (branch) ────────────────────────────────────
 // TODO: replace with data from the branch API.
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 12,
     color: colors.gray[500],
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
   },
   footer: {
     flexDirection: 'row',
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
   },
   etaLabel: {
     fontSize: 10,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     color: colors.gray[400],
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -261,7 +262,7 @@ const styles = StyleSheet.create({
   },
   etaValue: {
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     color: colors.gray[900],
   },
   navigateBtn: {
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
   },
   navigateBtnText: {
     color: colors.white,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     fontSize: 14,
   },
   noCoordContainer: {
@@ -290,11 +291,12 @@ const styles = StyleSheet.create({
   },
   noCoordTitle: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.gray[400],
   },
   noCoordSub: {
     fontSize: 12,
+    fontFamily: fonts.regular,
     color: colors.gray[300],
     textAlign: 'center',
     paddingHorizontal: 24,

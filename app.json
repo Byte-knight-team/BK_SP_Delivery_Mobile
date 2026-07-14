@@ -58,7 +58,9 @@
           "color": "#f97316",
           "defaultChannel": "delivery-alerts"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-splash-screen"
     ],
     "experiments": {
       "typedRoutes": true
