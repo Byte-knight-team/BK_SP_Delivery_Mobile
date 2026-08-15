@@ -12,7 +12,10 @@
  *   )
  */
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyCeQps-AfE_UdL8ytGmcvbNNuuO7N3HMnc'
+// Directions API key — must be unrestricted (or HTTP referrer only)
+// because this key is used in plain HTTP fetch() calls, not the native SDK.
+// Set EXPO_PUBLIC_DIRECTIONS_API_KEY in your .env file.
+const GOOGLE_MAPS_API_KEY = process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY
 
 /**
  * Decodes a Google Maps encoded polyline string into an array of

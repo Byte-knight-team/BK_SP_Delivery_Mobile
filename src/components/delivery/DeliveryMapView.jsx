@@ -28,6 +28,7 @@ import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import { getDirections } from '../../utils/directions'
 import { colors } from '../../theme/colors'
+import { fonts } from '../../theme/fonts'
 
 // ── Hardcoded restaurant location (branch) ────────────────────────────────────
 // TODO: replace with data from the branch API.
@@ -51,18 +52,18 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
   // ── Region that fits both markers with padding ─────────────────────────────
   const initialRegion = hasCoordinates
     ? {
-        latitude: (RESTAURANT.lat + customerLat) / 2,
-        longitude: (RESTAURANT.lng + customerLng) / 2,
-        // Span covers both points plus ~30% padding
-        latitudeDelta: Math.abs(RESTAURANT.lat - customerLat) * 1.6 + 0.01,
-        longitudeDelta: Math.abs(RESTAURANT.lng - customerLng) * 1.6 + 0.01,
-      }
+      latitude: (RESTAURANT.lat + customerLat) / 2,
+      longitude: (RESTAURANT.lng + customerLng) / 2,
+      // Span covers both points plus ~30% padding
+      latitudeDelta: Math.abs(RESTAURANT.lat - customerLat) * 1.6 + 0.01,
+      longitudeDelta: Math.abs(RESTAURANT.lng - customerLng) * 1.6 + 0.01,
+    }
     : {
-        latitude: RESTAURANT.lat,
-        longitude: RESTAURANT.lng,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      }
+      latitude: RESTAURANT.lat,
+      longitude: RESTAURANT.lng,
+      latitudeDelta: 0.05,
+      longitudeDelta: 0.05,
+    }
 
   // ── Fetch route on mount ───────────────────────────────────────────────────
   useEffect(() => {
@@ -90,8 +91,9 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
       return
     }
 
+    // No &origin= param → Google Maps uses the device's live GPS location,
+    // which allows the "Start" button for turn-by-turn navigation to work.
     const url = `https://www.google.com/maps/dir/?api=1` +
-      `&origin=${RESTAURANT.lat},${RESTAURANT.lng}` +
       `&destination=${customerLat},${customerLng}` +
       `&travelmode=driving`
 
@@ -128,6 +130,8 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
           showsMyLocationButton={false}
           showsCompass={false}
           toolbarEnabled={false}
+          onMapReady={() => console.log('[MapView] onMapReady fired ✓')}
+          onError={(e) => console.error('[MapView] onError:', e.nativeEvent)}
         >
           {/* Pin A — Restaurant */}
           <Marker
@@ -194,7 +198,9 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.white,
     borderRadius: 24,
-    overflow: 'hidden',
+    // NOTE: overflow:'hidden' intentionally removed — it clips native MapView
+    // on Android, causing a blank white surface. Border radius is applied to
+    // child sections (mapWrapper top, footer bottom) instead.
     borderWidth: 1,
     borderColor: colors.gray[100],
     shadowColor: colors.black,
@@ -206,10 +212,16 @@ const styles = StyleSheet.create({
   },
   mapWrapper: {
     height: 220,
+    width: '100%',
     position: 'relative',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    // NOTE: overflow:'hidden' removed — on Android it clips native (SurfaceView)
+    // views including MapView, preventing tiles from rendering.
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
+    width: '100%',
+    height: '100%',
   },
   loadingOverlay: {
     position: 'absolute',
@@ -226,7 +238,7 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 12,
     color: colors.gray[500],
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
   },
   footer: {
     flexDirection: 'row',
@@ -236,10 +248,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderTopWidth: 1,
     borderTopColor: colors.gray[100],
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
+    backgroundColor: colors.white,
   },
   etaLabel: {
     fontSize: 10,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     color: colors.gray[400],
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -247,7 +262,7 @@ const styles = StyleSheet.create({
   },
   etaValue: {
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     color: colors.gray[900],
   },
   navigateBtn: {
@@ -260,7 +275,7 @@ const styles = StyleSheet.create({
   },
   navigateBtnText: {
     color: colors.white,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     fontSize: 14,
   },
   noCoordContainer: {
@@ -276,11 +291,12 @@ const styles = StyleSheet.create({
   },
   noCoordTitle: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.gray[400],
   },
   noCoordSub: {
     fontSize: 12,
+    fontFamily: fonts.regular,
     color: colors.gray[300],
     textAlign: 'center',
     paddingHorizontal: 24,

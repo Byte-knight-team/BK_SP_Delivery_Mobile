@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "scheme": "cravehouse-delivery",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -58,7 +58,9 @@
           "color": "#f97316",
           "defaultChannel": "delivery-alerts"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-splash-screen"
     ],
     "experiments": {
       "typedRoutes": true
