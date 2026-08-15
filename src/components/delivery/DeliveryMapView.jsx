@@ -30,16 +30,23 @@ import { getDirections } from '../../utils/directions'
 import { colors } from '../../theme/colors'
 import { fonts } from '../../theme/fonts'
 
-// ── Hardcoded restaurant location (branch) ────────────────────────────────────
-// TODO: replace with data from the branch API.
-const RESTAURANT = {
+// ── Default hardcoded restaurant location fallback ────────────────────────────
+const DEFAULT_RESTAURANT = {
   lat: 6.9271,
   lng: 79.8612,
   label: 'CraveHouse Restaurant',
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
-export default function DeliveryMapView({ customerLat, customerLng, deliveryAddress }) {
+export default function DeliveryMapView({ 
+  customerLat, 
+  customerLng, 
+  deliveryAddress,
+  branchLat,
+  branchLng,
+  branchName,
+  isRedispatch 
+}) {
   const mapRef = useRef(null)
 
   const [routeCoords, setRouteCoords] = useState([])
@@ -49,18 +56,22 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
 
   const hasCoordinates = customerLat != null && customerLng != null
 
+  const pickupLat = branchLat || DEFAULT_RESTAURANT.lat;
+  const pickupLng = branchLng || DEFAULT_RESTAURANT.lng;
+  const pickupName = branchName || DEFAULT_RESTAURANT.label;
+
   // ── Region that fits both markers with padding ─────────────────────────────
   const initialRegion = hasCoordinates
     ? {
-      latitude: (RESTAURANT.lat + customerLat) / 2,
-      longitude: (RESTAURANT.lng + customerLng) / 2,
+      latitude: (pickupLat + customerLat) / 2,
+      longitude: (pickupLng + customerLng) / 2,
       // Span covers both points plus ~30% padding
-      latitudeDelta: Math.abs(RESTAURANT.lat - customerLat) * 1.6 + 0.01,
-      longitudeDelta: Math.abs(RESTAURANT.lng - customerLng) * 1.6 + 0.01,
+      latitudeDelta: Math.abs(pickupLat - customerLat) * 1.6 + 0.01,
+      longitudeDelta: Math.abs(pickupLng - customerLng) * 1.6 + 0.01,
     }
     : {
-      latitude: RESTAURANT.lat,
-      longitude: RESTAURANT.lng,
+      latitude: pickupLat,
+      longitude: pickupLng,
       latitudeDelta: 0.05,
       longitudeDelta: 0.05,
     }
@@ -72,7 +83,7 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
     const fetchRoute = async () => {
       setLoadingRoute(true)
       const result = await getDirections(
-        { lat: RESTAURANT.lat, lng: RESTAURANT.lng },
+        { lat: pickupLat, lng: pickupLng },
         { lat: customerLat, lng: customerLng }
       )
       setRouteCoords(result.polylineCoords)
@@ -82,7 +93,7 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
     }
 
     fetchRoute()
-  }, [customerLat, customerLng])
+  }, [customerLat, customerLng, pickupLat, pickupLng])
 
   // ── Open Google Maps app for turn-by-turn navigation ──────────────────────
   const handleNavigate = () => {
@@ -133,13 +144,15 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
           onMapReady={() => console.log('[MapView] onMapReady fired ✓')}
           onError={(e) => console.error('[MapView] onError:', e.nativeEvent)}
         >
-          {/* Pin A — Restaurant */}
-          <Marker
-            coordinate={{ latitude: RESTAURANT.lat, longitude: RESTAURANT.lng }}
-            title="Restaurant"
-            description={RESTAURANT.label}
-            pinColor={colors.brand[500]}
-          />
+          {/* Pin A — Restaurant (Only show if re-dispatch) */}
+          {isRedispatch && (
+            <Marker
+              coordinate={{ latitude: pickupLat, longitude: pickupLng }}
+              title="Pickup Here"
+              description={pickupName}
+              pinColor={colors.orange[500]}
+            />
+          )}
 
           {/* Pin B — Customer */}
           <Marker
@@ -149,12 +162,13 @@ export default function DeliveryMapView({ customerLat, customerLng, deliveryAddr
             pinColor={colors.blue[500]}
           />
 
-          {/* Route polyline */}
-          {routeCoords.length > 0 && (
+          {/* Route polyline (Only show full line if re-dispatch) */}
+          {routeCoords.length > 0 && isRedispatch && (
             <Polyline
               coordinates={routeCoords}
               strokeColor={colors.blue[500]}
-              strokeWidth={4}
+              strokeWidth={3}
+              lineDashPattern={[10, 10]}
             />
           )}
         </MapView>

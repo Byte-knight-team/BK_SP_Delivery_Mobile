@@ -135,6 +135,17 @@ export default function OrderActionCard({ order, onActionComplete }) {
 
       {/* ── Order card ───────────────────────────────────────────────────────── */}
       <View className="bg-white rounded-3xl p-5 mb-4 shadow-sm border border-gray-100 mx-6">
+        
+        {/* RE-DISPATCH BADGE */}
+        {order.isRedispatch && (
+          <View className="bg-red-50 border border-red-100 rounded-xl px-3 py-2 mb-3 flex-row items-center gap-2">
+            <Ionicons name="alert-circle" size={16} color={colors.red[500]} />
+            <Text className="text-red-700 font-bold text-xs flex-1">
+              RE-DISPATCH — Pick up from restaurant first
+            </Text>
+          </View>
+        )}
+
         <View className="flex-row justify-between items-start mb-3">
           <View className="flex-1 pr-4">
             <Text className="text-lg font-black text-gray-900 mb-1">Order #{order.id}</Text>
