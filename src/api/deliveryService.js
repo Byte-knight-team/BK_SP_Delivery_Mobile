@@ -67,18 +67,20 @@ export const DeliveryService = {
   },
 
   /**
-   * Updates the delivery status (e.g., OUT_FOR_DELIVERY, DELIVERED).
+   * Updates the delivery status (e.g., OUT_FOR_DELIVERY, DELIVERED, CANCELLED).
    * Directly impacts the customer's real-time order tracking status.
+   * An optional `reason` can be provided for CANCELLED status updates.
    *
    * Endpoint: POST /api/delivery/orders/{orderId}/status
    * @param {string|number} orderId - Unique identifier of the order.
    * @param {string} status - The new DeliveryStatus enum value.
+   * @param {string} [reason] - Optional cancellation reason (required when status = CANCELLED).
    * @returns {Promise<Object>} The updated delivery entity.
    */
-  updateDeliveryStatus: async (orderId, status) => {
-    const response = await apiClient.post(`${BASE_PATH}/orders/${orderId}/status`, {
-      status,
-    })
+  updateDeliveryStatus: async (orderId, status, reason) => {
+    const body = { status }
+    if (reason) body.reason = reason
+    const response = await apiClient.post(`${BASE_PATH}/orders/${orderId}/status`, body)
     return response.data
   },
 

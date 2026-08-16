@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "scheme": "cravehouse-delivery",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -25,10 +25,17 @@
         "backgroundColor": "#f97316"
       },
       "package": "com.byteknights.cravehouse.delivery",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCeQps-AfE_UdL8ytGmcvbNNuuO7N3HMnc"
+        }
+      },
       "permissions": [
         "android.permission.RECEIVE_BOOT_COMPLETED",
         "android.permission.VIBRATE",
-        "android.permission.POST_NOTIFICATIONS"
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
       ]
     },
     "web": {
@@ -39,13 +46,21 @@
       "expo-status-bar",
       "expo-secure-store",
       [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow CraveHouse Delivery to access your location for navigation."
+        }
+      ],
+      [
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
           "color": "#f97316",
           "defaultChannel": "delivery-alerts"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-splash-screen"
     ],
     "experiments": {
       "typedRoutes": true

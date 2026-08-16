@@ -83,8 +83,21 @@ apiClient.interceptors.response.use(
       }
     }
 
+    // Log the raw backend response so it's visible in Expo console
+    console.error('[apiClient] HTTP error', {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message,
+    })
+
     // All other errors — extract message from backend response body if available
-    const message = error.response?.data?.message || error.message || 'An unexpected error occurred'
+    const message =
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      error.message ||
+      'An unexpected error occurred'
 
     return Promise.reject(new Error(message))
   }
