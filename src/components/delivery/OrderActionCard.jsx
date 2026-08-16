@@ -119,10 +119,7 @@ export default function OrderActionCard({ order, onActionComplete }) {
 
               <TouchableOpacity
                 onPress={confirmReject}
-                style={[
-                  styles.confirmBtn,
-                  !rejectReason.trim() && styles.confirmBtnDisabled,
-                ]}
+                style={[styles.confirmBtn, !rejectReason.trim() && styles.confirmBtnDisabled]}
                 activeOpacity={0.8}
                 disabled={!rejectReason.trim()}
               >
@@ -135,7 +132,6 @@ export default function OrderActionCard({ order, onActionComplete }) {
 
       {/* ── Order card ───────────────────────────────────────────────────────── */}
       <View className="bg-white rounded-3xl p-5 mb-4 shadow-sm border border-gray-100 mx-6">
-        
         {/* RE-DISPATCH BADGE */}
         {order.isRedispatch && (
           <View className="bg-red-50 border border-red-100 rounded-xl px-3 py-2 mb-3 flex-row items-center gap-2">
@@ -160,7 +156,9 @@ export default function OrderActionCard({ order, onActionComplete }) {
 
         <View className="flex-row items-center bg-gray-50 p-3 rounded-2xl mb-5">
           <Ionicons name="person-outline" size={16} color={colors.gray[500]} />
-          <Text className="text-sm font-medium text-gray-700 ml-2 flex-1">{order.customerName}</Text>
+          <Text className="text-sm font-medium text-gray-700 ml-2 flex-1">
+            {order.customerName}
+          </Text>
           <Text className="text-sm font-bold text-gray-900">{order.customerPhone}</Text>
         </View>
 
@@ -183,7 +181,9 @@ export default function OrderActionCard({ order, onActionComplete }) {
             ) : (
               <>
                 <Ionicons name="checkmark" size={18} color="white" style={{ marginRight: 6 }} />
-                <Text className="text-white font-bold text-sm uppercase tracking-widest">Accept</Text>
+                <Text className="text-white font-bold text-sm uppercase tracking-widest">
+                  Accept
+                </Text>
               </>
             )}
           </TouchableOpacity>

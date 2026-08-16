@@ -38,14 +38,14 @@ const DEFAULT_RESTAURANT = {
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
-export default function DeliveryMapView({ 
-  customerLat, 
-  customerLng, 
+export default function DeliveryMapView({
+  customerLat,
+  customerLng,
   deliveryAddress,
   branchLat,
   branchLng,
   branchName,
-  isRedispatch 
+  isRedispatch,
 }) {
   const mapRef = useRef(null)
 
@@ -56,25 +56,25 @@ export default function DeliveryMapView({
 
   const hasCoordinates = customerLat != null && customerLng != null
 
-  const pickupLat = branchLat || DEFAULT_RESTAURANT.lat;
-  const pickupLng = branchLng || DEFAULT_RESTAURANT.lng;
-  const pickupName = branchName || DEFAULT_RESTAURANT.label;
+  const pickupLat = branchLat || DEFAULT_RESTAURANT.lat
+  const pickupLng = branchLng || DEFAULT_RESTAURANT.lng
+  const pickupName = branchName || DEFAULT_RESTAURANT.label
 
   // ── Region that fits both markers with padding ─────────────────────────────
   const initialRegion = hasCoordinates
     ? {
-      latitude: (pickupLat + customerLat) / 2,
-      longitude: (pickupLng + customerLng) / 2,
-      // Span covers both points plus ~30% padding
-      latitudeDelta: Math.abs(pickupLat - customerLat) * 1.6 + 0.01,
-      longitudeDelta: Math.abs(pickupLng - customerLng) * 1.6 + 0.01,
-    }
+        latitude: (pickupLat + customerLat) / 2,
+        longitude: (pickupLng + customerLng) / 2,
+        // Span covers both points plus ~30% padding
+        latitudeDelta: Math.abs(pickupLat - customerLat) * 1.6 + 0.01,
+        longitudeDelta: Math.abs(pickupLng - customerLng) * 1.6 + 0.01,
+      }
     : {
-      latitude: pickupLat,
-      longitude: pickupLng,
-      latitudeDelta: 0.05,
-      longitudeDelta: 0.05,
-    }
+        latitude: pickupLat,
+        longitude: pickupLng,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }
 
   // ── Fetch route on mount ───────────────────────────────────────────────────
   useEffect(() => {
@@ -104,13 +104,12 @@ export default function DeliveryMapView({
 
     // No &origin= param → Google Maps uses the device's live GPS location,
     // which allows the "Start" button for turn-by-turn navigation to work.
-    const url = `https://www.google.com/maps/dir/?api=1` +
+    const url =
+      `https://www.google.com/maps/dir/?api=1` +
       `&destination=${customerLat},${customerLng}` +
       `&travelmode=driving`
 
-    Linking.openURL(url).catch(() =>
-      Alert.alert('Error', 'Unable to open Google Maps')
-    )
+    Linking.openURL(url).catch(() => Alert.alert('Error', 'Unable to open Google Maps'))
   }
 
   // ── No coordinates fallback ────────────────────────────────────────────────

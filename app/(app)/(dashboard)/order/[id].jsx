@@ -97,7 +97,10 @@ export default function OrderDetailScreen() {
       ])
     } catch (error) {
       console.error('[submitCancel] error:', error?.response?.data || error?.message || error)
-      Alert.alert('Error', error?.response?.data?.message || error.message || 'Failed to cancel delivery')
+      Alert.alert(
+        'Error',
+        error?.response?.data?.message || error.message || 'Failed to cancel delivery'
+      )
     } finally {
       setUpdating(false)
     }
@@ -151,10 +154,10 @@ export default function OrderDetailScreen() {
 
       <ScrollView className="flex-1 px-6" contentContainerStyle={{ paddingBottom: 40 }}>
         {/* Map View */}
-        <DeliveryMapView 
-          customerLat={order.latitude} 
+        <DeliveryMapView
+          customerLat={order.latitude}
           customerLng={order.longitude}
-          deliveryAddress={order.deliveryAddress || order.location} 
+          deliveryAddress={order.deliveryAddress || order.location}
           branchLat={order.branchLatitude}
           branchLng={order.branchLongitude}
           branchName={order.branchName}
@@ -295,7 +298,12 @@ export default function OrderDetailScreen() {
                 updating ? 'border-red-200 bg-red-50' : 'border-red-100 bg-red-50'
               }`}
             >
-              <Ionicons name="close-circle" size={24} color={colors.red[500]} style={{ marginRight: 12 }} />
+              <Ionicons
+                name="close-circle"
+                size={24}
+                color={colors.red[500]}
+                style={{ marginRight: 12 }}
+              />
               <Text className="text-red-500 font-black uppercase tracking-widest">
                 Report Issue / Cancel
               </Text>
@@ -311,17 +319,46 @@ export default function OrderDetailScreen() {
         animationType="fade"
         onRequestClose={() => setCancelModalVisible(false)}
       >
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 24 }}>
-          <View style={{ backgroundColor: 'white', borderRadius: 24, padding: 24, elevation: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 20 }}>
-            <Text style={{ fontSize: 18, fontWeight: '900', color: colors.gray[900], marginBottom: 8 }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            justifyContent: 'center',
+            padding: 24,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 24,
+              padding: 24,
+              elevation: 5,
+              shadowColor: '#000',
+              shadowOpacity: 0.1,
+              shadowRadius: 20,
+            }}
+          >
+            <Text
+              style={{ fontSize: 18, fontWeight: '900', color: colors.gray[900], marginBottom: 8 }}
+            >
               Cancel Delivery
             </Text>
             <Text style={{ fontSize: 14, color: colors.gray[500], marginBottom: 16 }}>
               Please provide a reason for cancelling this active delivery:
             </Text>
-            
+
             <TextInput
-              style={{ backgroundColor: colors.gray[50], borderWidth: 1, borderColor: colors.gray[200], borderRadius: 12, padding: 12, fontSize: 15, color: colors.gray[900], minHeight: 100, textAlignVertical: 'top' }}
+              style={{
+                backgroundColor: colors.gray[50],
+                borderWidth: 1,
+                borderColor: colors.gray[200],
+                borderRadius: 12,
+                padding: 12,
+                fontSize: 15,
+                color: colors.gray[900],
+                minHeight: 100,
+                textAlignVertical: 'top',
+              }}
               placeholder="e.g. Flat tire, vehicle breakdown..."
               placeholderTextColor={colors.gray[400]}
               multiline
@@ -330,18 +367,30 @@ export default function OrderDetailScreen() {
               autoFocus
             />
 
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 24, gap: 12 }}>
-              <TouchableOpacity onPress={() => setCancelModalVisible(false)} style={{ paddingHorizontal: 16, paddingVertical: 10 }}>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 24, gap: 12 }}
+            >
+              <TouchableOpacity
+                onPress={() => setCancelModalVisible(false)}
+                style={{ paddingHorizontal: 16, paddingVertical: 10 }}
+              >
                 <Text style={{ color: colors.gray[500], fontWeight: '700' }}>Back</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={submitCancel} style={{ backgroundColor: colors.red[500], paddingHorizontal: 16, paddingVertical: 10, borderRadius: 12 }}>
+              <TouchableOpacity
+                onPress={submitCancel}
+                style={{
+                  backgroundColor: colors.red[500],
+                  paddingHorizontal: 16,
+                  paddingVertical: 10,
+                  borderRadius: 12,
+                }}
+              >
                 <Text style={{ color: 'white', fontWeight: '700' }}>Submit</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
       </Modal>
-
     </SafeAreaView>
   )
 }

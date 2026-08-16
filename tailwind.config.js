@@ -24,15 +24,15 @@ module.exports = {
       fontFamily: {
         // Inter weight variants — loaded in app/_layout.jsx via @expo-google-fonts/inter
         // NativeWind usage: font-inter, font-inter-medium, font-inter-bold, etc.
-        'inter':            ['Inter_400Regular'],
-        'inter-thin':       ['Inter_100Thin'],
+        inter: ['Inter_400Regular'],
+        'inter-thin': ['Inter_100Thin'],
         'inter-extralight': ['Inter_200ExtraLight'],
-        'inter-light':      ['Inter_300Light'],
-        'inter-medium':     ['Inter_500Medium'],
-        'inter-semibold':   ['Inter_600SemiBold'],
-        'inter-bold':       ['Inter_700Bold'],
-        'inter-extrabold':  ['Inter_800ExtraBold'],
-        'inter-black':      ['Inter_900Black'],
+        'inter-light': ['Inter_300Light'],
+        'inter-medium': ['Inter_500Medium'],
+        'inter-semibold': ['Inter_600SemiBold'],
+        'inter-bold': ['Inter_700Bold'],
+        'inter-extrabold': ['Inter_800ExtraBold'],
+        'inter-black': ['Inter_900Black'],
       },
     },
   },
