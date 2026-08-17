@@ -154,12 +154,22 @@ export default function OrderActionCard({ order, onActionComplete }) {
           </View>
         </View>
 
-        <View className="flex-row items-center bg-gray-50 p-3 rounded-2xl mb-5">
+        <View className="flex-row items-center bg-gray-50 p-3 rounded-2xl mb-3">
           <Ionicons name="person-outline" size={16} color={colors.gray[500]} />
           <Text className="text-sm font-medium text-gray-700 ml-2 flex-1">
             {order.customerName}
           </Text>
           <Text className="text-sm font-bold text-gray-900">{order.customerPhone}</Text>
+        </View>
+
+        <View className={`flex-row items-center p-3 rounded-2xl mb-5 ${order.paymentType === 'PAID' ? 'bg-green-50 border border-green-100' : 'bg-orange-50 border border-orange-100'}`}>
+          <Ionicons name="cash-outline" size={16} color={order.paymentType === 'PAID' ? colors.green[500] : colors.brand[500]} />
+          <Text className={`text-sm font-bold ml-2 uppercase ${order.paymentType === 'PAID' ? 'text-green-700' : 'text-orange-700'}`}>
+            {order.paymentType || 'CASH ON DELIVERY'}
+          </Text>
+          <View className="flex-1 items-end">
+            <Text className="text-sm font-black text-gray-900">Rs. {order.amount?.toLocaleString() || '0'}</Text>
+          </View>
         </View>
 
         <View className="flex-row gap-3">
