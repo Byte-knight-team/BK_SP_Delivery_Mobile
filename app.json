@@ -7,12 +7,6 @@
     "icon": "./assets/icon.png",
     "scheme": "cravehouse-delivery",
     "userInterfaceStyle": "light",
-    "newArchEnabled": false,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#f97316"
-    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.byteknights.cravehouse.delivery"
@@ -63,7 +57,8 @@
       "expo-splash-screen"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "newArchEnabled": false
     },
     "extra": {
       "router": {},

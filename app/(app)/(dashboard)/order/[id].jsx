@@ -225,7 +225,7 @@ export default function OrderDetailScreen() {
           </TouchableOpacity>
 
           {/* Summary */}
-          <View className="bg-gray-50 rounded-2xl p-4 flex-row items-center justify-between">
+          <View className="bg-gray-50 rounded-2xl p-4 mb-2 flex-row items-center justify-between">
             <View className="flex-row items-center">
               <Ionicons name="receipt-outline" size={20} color={colors.gray[400]} />
               <Text className="text-xs font-bold text-gray-500 uppercase tracking-widest ml-3">
@@ -234,6 +234,28 @@ export default function OrderDetailScreen() {
             </View>
             <Text className="text-lg font-black text-gray-900">
               Rs. {order.totalAmount || order.amount?.toLocaleString() || '0'}
+            </Text>
+          </View>
+
+          <View
+            className={`rounded-2xl p-4 flex-row items-center justify-between ${order.paymentType === 'PAID' ? 'bg-green-50' : 'bg-orange-50'}`}
+          >
+            <View className="flex-row items-center">
+              <Ionicons
+                name="cash-outline"
+                size={20}
+                color={order.paymentType === 'PAID' ? colors.green[500] : colors.brand[500]}
+              />
+              <Text
+                className={`text-xs font-bold uppercase tracking-widest ml-3 ${order.paymentType === 'PAID' ? 'text-green-600' : 'text-orange-600'}`}
+              >
+                Payment Status
+              </Text>
+            </View>
+            <Text
+              className={`text-sm font-black uppercase ${order.paymentType === 'PAID' ? 'text-green-700' : 'text-orange-700'}`}
+            >
+              {order.paymentType || 'CASH ON DELIVERY'}
             </Text>
           </View>
         </View>

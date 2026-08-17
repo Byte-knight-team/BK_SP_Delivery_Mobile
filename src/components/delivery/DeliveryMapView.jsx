@@ -227,14 +227,11 @@ const styles = StyleSheet.create({
     height: 220,
     width: '100%',
     position: 'relative',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    // NOTE: overflow:'hidden' removed — on Android it clips native (SurfaceView)
-    // views including MapView, preventing tiles from rendering.
+    // Android black screen fix: remove border radius clipping on the MapView container itself
+    // and let the parent container or a wrapper handle it cleanly.
   },
   map: {
-    width: '100%',
-    height: '100%',
+    ...StyleSheet.absoluteFillObject,
   },
   loadingOverlay: {
     position: 'absolute',

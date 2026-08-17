@@ -10,7 +10,7 @@
       },
       "env": {
         "EXPO_PUBLIC_API_BASE_URL": "https://syncserve-backend.onrender.com",
-        "EXPO_PUBLIC_DIRECTIONS_API_KEY": "AIzaSyCBjyV17dj67Up8Z5yK0nEra9oh568j7NQ"
+        "EXPO_PUBLIC_DIRECTIONS_API_KEY": "AIzaSyCeQps-AfE_UdL8ytGmcvbNNuuO7N3HMnc"
       }
     },
     "production": {
@@ -19,7 +19,7 @@
       },
       "env": {
         "EXPO_PUBLIC_API_BASE_URL": "https://syncserve-backend.onrender.com",
-        "EXPO_PUBLIC_DIRECTIONS_API_KEY": "AIzaSyCBjyV17dj67Up8Z5yK0nEra9oh568j7NQ"
+        "EXPO_PUBLIC_DIRECTIONS_API_KEY": "AIzaSyCeQps-AfE_UdL8ytGmcvbNNuuO7N3HMnc"
       }
     }
   }
